@@ -2,6 +2,8 @@
 {% load static %}
 <html>
   <head>
+        {% block links %}
+        {% endblock links %}
         {% include 'layout/head.html' %}
   </head>
   <body>
@@ -15,6 +17,8 @@
     <!-- Page Footer-->
     {% include 'layout/footer.html' %}
     <!-- JavaScript files-->
+    {% block scripts %}
+    {% endblock scripts %}
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/popper.js/umd/popper.min.js' %}"> </script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
