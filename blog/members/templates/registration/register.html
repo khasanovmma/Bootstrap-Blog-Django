@@ -5,6 +5,10 @@
   integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 {% endblock links %}
 
+{% block title %}
+Registration
+{% endblock title %}
+
 {% block main %}
 <section class="" style="background-color: #eee;">
     <div class="container ">
@@ -20,14 +24,8 @@
                   <form method="POST" class="mx-1 mx-md-4 needs-validation" novalidate>
                     {% csrf_token %}
                     <div class="form-floating mb-3">
-                      {% comment %} {% if form.username.errors %}
-                      {% render_field form.username class="form-control is-valid form-control-lg" placeholder="Enter Username"  %}
-                      {% else %}
-                      {% render_field form.username class="form-control is-invalid form-control-lg" placeholder="Enter Username"  %}
-                      {% endif %} {% endcomment %}
                       {% render_field form.username class="form-control form-control-lg" placeholder="Enter Username"  %}
                         <label class="form-label" for="{{ form.username.id_for_lable }}">Username name</label>
-
                         <div class="invalid-feedback d-block"> {% for error in form.username.errors %} {{ error }} {% endfor %}</div>
                       </div>
                     <div class="form-floating mb-3">
@@ -59,15 +57,12 @@
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                       <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 10px !important;">Register</button>
                     </div>
-  
                   </form>
   
                 </div>
                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-  
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                     class="img-fluid" alt="Sample image">
-  
                 </div>
               </div>
             </div>
