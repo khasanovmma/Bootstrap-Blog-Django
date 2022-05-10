@@ -1,7 +1,7 @@
 from re import template
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -40,5 +40,8 @@ class UserSetPasswordtView(SuccessMessageMixin, PasswordResetConfirmView):
     form_class = SetNewPasswordForm
     success_url = reverse_lazy('login')
     success_message = 'Password reset request completed successfully'
+    
+class UserProfileView(TemplateView):
+    template_name = 'registration/profile.html'
     
    

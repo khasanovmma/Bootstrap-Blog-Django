@@ -1,4 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+class Profile(models.Model):
+    user =  models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+    
 
 class Category(models.Model):
     title = models.CharField(max_length=150)
