@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('members/', include('members.urls')),
     path('members/', include('django.contrib.auth.urls')),
+    path('social-auth/', include('social_django.urls', namespace='social')),
     path('', include('web_site.urls')),
 ]
 

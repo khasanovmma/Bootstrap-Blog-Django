@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-o&@t9-zz5&kk(k!+z+nwsq@=ozs-735v!6lp2vi$+w#6q6bv=c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'web_site',
     'members',
     'widget_tweaks',
+    'social_django',
+    "sslserver",
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -90,6 +94,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -110,7 +121,8 @@ STATIC_URL = 'static/'
 # STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    BASE_DIR / 'web_site/static'
+    BASE_DIR / 'web_site/static',
+    BASE_DIR / 'members/static',
 ]
 
 MEDIA_URL = 'media/'
@@ -132,3 +144,13 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'khasanovtest009@gmail.com'
 EMAIL_HOST_PASSWORD = 'A6516519a'
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = '568684991220625'
+SOCIAL_AUTH_FACEBOOK_SECRET = '8b800850c0405f849d9ae9072caf891d'
+
+SOCIAL_AUTH_GITHUB_KEY = 'c0e26e7a1f0b7755e26c'
+SOCIAL_AUTH_GITHUB_SECRET = 'af5ccba3c2ddf06d9989204e2dbafa6e22a18af0'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '375155863552-3bgo2954khb5ual0p75uc2u2a12302ql.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'

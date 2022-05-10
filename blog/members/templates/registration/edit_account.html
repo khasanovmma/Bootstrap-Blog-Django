@@ -13,6 +13,9 @@ Edit account
 {% block main %}
     <div class="container mt-3">
         <div class="form-group">
+            <header>
+                <h3 class="h6">Edit account</h3>
+            </header>
             {% include 'components/_messages.html' %}
             <form method="post">
                 {% csrf_token %}
