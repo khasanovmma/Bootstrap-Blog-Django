@@ -1,7 +1,9 @@
 from re import template
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, TemplateView
+from web_site.models import Profile
+from django.contrib.auth.models import User
+from django.views.generic import CreateView, UpdateView, TemplateView, DetailView, ListView
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -41,7 +43,18 @@ class UserSetPasswordtView(SuccessMessageMixin, PasswordResetConfirmView):
     success_url = reverse_lazy('login')
     success_message = 'Password reset request completed successfully'
     
-class UserProfileView(TemplateView):
+class ShowProfilePageView(ListView):
+    model = Profile
     template_name = 'registration/profile.html'
+
+    def get_context_data(self, **kwargs):
+        print(self.kwargs['username'])
+        user = User.objects.get(username=self.kwargs['username'])
+        print(user.pk)
+        user_profile = get_object_or_404(Profile, user=user.pk)
+        context = super().get_context_data(**kwargs)
+        context["user_page"] =  user_profile
+        return context
+    
     
    
