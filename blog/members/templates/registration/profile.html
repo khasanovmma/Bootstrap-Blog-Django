@@ -11,21 +11,14 @@
 {% endblock links %}
 {% block main %}
 <div class="container py-5">
-	
+	{% include 'components/_messages.html' %}
 	<div class="row">
 	  <div class="col-lg-4">
 		<div class="card mb-4">
 		  <div class="card-body text-center">
 
-			  {% if user_page.profile_image %}
-			  
-			  <img src="{{ user_page.profile_image.url }}" alt="avatar"
-			  class="rounded-circle img-fluid" style="width: 150px;">
-			  {% else %}
-			  <img src="https://cdn-icons-png.flaticon.com/512/711/711769.png" alt="avatar"
-			  class="rounded-circle img-fluid" style="width: 150px;">
-			  {% endif %}
-			  
+			  	<img src="{{ user_page.image_url }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+			
 			
 			<h5 class="my-3">{{ user_page }}</h5>
 			<p class="text-muted mb-2">{{ user_page.user.email }}</p>
@@ -46,8 +39,7 @@
 				</div>
 			</div>
 			<div class="d-flex justify-content-center mb-2">
-			  <button type="button" class="btn btn-danger me-3">Edit profile</button>
-			  <button type="button" class="btn btn-danger">Change account</button>
+			  <a href="{% url 'edit_profile' %}" class="btn btn-danger">Edit profile</a>
 			</div>
 		  </div>
 		</div>
@@ -62,7 +54,7 @@
 				<p class="mb-0">Phone</p>
 			  </div>
 			  <div class="col-sm-9">
-				<p class="text-muted mb-0">(097) 234-5678</p>
+				<p class="text-muted mb-0">{{ user_page.phone }}</p>
 			  </div>
 			</div>
 			<hr>
@@ -71,7 +63,7 @@
 				<p class="mb-0">Mobile</p>
 			  </div>
 			  <div class="col-sm-9">
-				<p class="text-muted mb-0">(098) 765-4321</p>
+				<p class="text-muted mb-0">{{ user_page.mobile }}</p>
 			  </div>
 			</div>
 			<hr>
@@ -80,7 +72,7 @@
 				<p class="mb-0">Address</p>
 			  </div>
 			  <div class="col-sm-9">
-				<p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+				<p class="text-muted mb-0">{{ user_page.address }}</p>
 			  </div>
 			</div>
 		  </div>

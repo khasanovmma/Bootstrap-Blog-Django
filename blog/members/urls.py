@@ -8,5 +8,6 @@ urlpatterns = [
     path('password/', UserChangePasswordtView.as_view(), name="password"),
     path('reset-password/', UserPasswordResetView.as_view(), name="reset_password"),
     path('profile/<str:username>', ShowProfilePageView.as_view(), name="profile"),
+    path('edit-profile/', EditProfileView.as_view(), name="edit_profile"),
     path('reset/<uidb64>/<token>/', UserSetPasswordtView.as_view()),
 ]
