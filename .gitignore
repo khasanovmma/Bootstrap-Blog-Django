@@ -3,4 +3,4 @@ virt
 venv
 .vscode
 .idea
-__pycharm__
+**/__pycache__/
