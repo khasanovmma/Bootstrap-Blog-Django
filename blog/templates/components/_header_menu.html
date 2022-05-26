@@ -21,7 +21,7 @@
       {% else %}
       <li class="nav-item dropdown">
         <a class="active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-          <i class="fa fa-user-circle mr-1" aria-hidden="true" style="font-size: 16px;"></i>
+          <img src="{{ user_page.image_url }}" alt="avatar" class="rounded-circle img-fluid mr-2" style="width: 16px; height: 16px;">
           {{ request.user.username }}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
