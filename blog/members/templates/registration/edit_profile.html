@@ -14,7 +14,7 @@ Edit profile
     <div class="container mt-3">
         <div class="form-group">
             <header>
-                <h3 class="h6">Edit profile {{ user_page }}</h3>
+                <h3 class="h6">Edit profile: {{ request.user.first_name }} {{ request.user.last_name }}</h3>
             </header>
             {% include 'components/_messages.html' %}
             <form method="post"  enctype="multipart/form-data">

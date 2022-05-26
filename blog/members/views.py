@@ -60,11 +60,8 @@ class EditProfileView(SuccessMessageMixin, UpdateView):
     form_class = EditProfileFrom
     model= Profile
     template_name = 'registration/edit_profile.html'
-    # success_url = reverse_lazy('edit')
     success_message = 'Profile data successfully updated'
-    # fields = '__all__'
     def get_success_url(self):
-        child = self.get_object()
         return reverse_lazy('profile', kwargs = {'username': self.request.user.username })
 
     def get_object(self):
