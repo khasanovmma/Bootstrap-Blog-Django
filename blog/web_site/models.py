@@ -49,6 +49,14 @@ class Post(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     photo = models.ImageField(upload_to='photos/', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+    
+    def photo_url(self):
+        try:
+            url = self.photo.url
+        except:
+            url = 'https://www.midlandbrewing.com/wp-content/uploads/2018/04/Photo-Coming-Soon.png'
+        return url

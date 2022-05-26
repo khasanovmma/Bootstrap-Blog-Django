@@ -1,3 +1,6 @@
+{% load website_tags %}
+{% user_profile request as user_page %}
+
 <div id="navbarcollapse" class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item"><a href="{% url 'home' %}" class="nav-link active">Home</a>
@@ -21,6 +24,7 @@
       {% else %}
       <li class="nav-item dropdown">
         <a class="active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+         
           <img src="{{ user_page.image_url }}" alt="avatar" class="rounded-circle img-fluid mr-2" style="width: 16px; height: 16px;">
           {{ request.user.username }}
         </a>
