@@ -8,6 +8,7 @@ from .models import Post
 class HomePageView(ListView):
     model = Post
     template_name = 'web_site/index.html'
+    
 
 def blog_page(request):
     return render(request, 'web_site/blog.html')
