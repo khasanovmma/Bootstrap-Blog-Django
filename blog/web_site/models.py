@@ -50,6 +50,10 @@ class Post(models.Model):
     photo = models.ImageField(upload_to='photos/', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='blog_posts')
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
@@ -60,3 +64,6 @@ class Post(models.Model):
         except:
             url = 'https://www.midlandbrewing.com/wp-content/uploads/2018/04/Photo-Coming-Soon.png'
         return url
+
+    # def get_absolute_url(self):
+    #     return reverse_lazy("post", kwargs={"id": self.id})
