@@ -67,3 +67,13 @@ class Post(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse_lazy("post", kwargs={"id": self.id})
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    name = models.OneToOneField(User, on_delete=models.CASCADE)
+    body = models.CharField()(max_length=255)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.post
+    
