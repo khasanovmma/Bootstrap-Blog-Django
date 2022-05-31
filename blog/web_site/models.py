@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User
@@ -41,6 +42,11 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+class Ip(models.Model):
+    ip = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.ip
 
 class Post(models.Model):
     title = models.CharField(max_length=150)
@@ -51,12 +57,19 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='blog_posts')
+    views = models.ManyToManyField(Ip, related_name="post_views", blank=True)
 
     def total_likes(self):
         return self.likes.count()
+    
+    def views_count(self):
+        return self.views.count()
 
     def __str__(self):
         return self.title
+    
+    def like_from_user(self, request):
+        return self.likes.filter(id=request.user.id).exists()
     
     def photo_url(self):
         try:
@@ -65,8 +78,8 @@ class Post(models.Model):
             url = 'https://www.midlandbrewing.com/wp-content/uploads/2018/04/Photo-Coming-Soon.png'
         return url
 
-    # def get_absolute_url(self):
-    #     return reverse_lazy("post", kwargs={"id": self.id})
+    def get_absolute_url(self):
+        return reverse_lazy("post_details", kwargs={"pk": self.pk})
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
@@ -75,5 +88,5 @@ class Comment(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.post
+        return self.post.title
     

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <!-- Latest Posts -->
+    <main class="post blog-post col-lg-8">
+      <div class="container">
+        <div class="post-single">
+          {% include 'web_site/components/_post_details.html' %}
+        </div>
+      </div>
+    </main>
+    {% include 'web_site/components/_aside.html' %}
+  </div>
+</div>
+{% endblock main %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$('.like').click(function(){
+    $.ajax({
+             type: "POST",
+             url: "{% url 'like' %}",
+             data: {'post_id': $(this).attr('name'),'operation':'like_submit', 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+             dataType: "json",
+             success: function(response) {
+              selector = document.getElementsByName(response.post_id);
+                    if(response.liked==true){
+                        $(selector).css("color", "red");
+                        
+                        
+                    }
+                    else if(response.liked==false){
+                        $(selector).css("color", "#999");
+                       
+                    }
+                    $('#like_count_' + response.post_id).text(response.total_likes)
+                    
+              }
+
+        });
+
+  })
+</script>
+{% endblock scripts %}

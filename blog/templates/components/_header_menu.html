@@ -1,5 +1,5 @@
 {% load website_tags %}
-{% user_profile request as user_page %}
+
 
 <div id="navbarcollapse" class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
@@ -15,13 +15,15 @@
     <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
     <ul class="langs navbar-text navbar-nav">
       {% if not request.user.is_authenticated %}
+      
       <li class="nav-item">
         <a href="{% url 'login' %}" class="active">
         <i class="fa fa-user-circle mr-1" aria-hidden="true" style="font-size: 16px;"></i>
-        {{ request.user.username }}
+        Login
       </a>
     </li>
       {% else %}
+      {% user_profile request as user_page %}
       <li class="nav-item dropdown">
         <a class="active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
          

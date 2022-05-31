@@ -41,7 +41,7 @@
                                 <div class="category">
                                     <a href="#">{{ post.category }}</a>
                                 </div>
-                                <a href="post.html">
+                                <a href="{{ post.get_absolute_url }}">
                                     <h2 class="h4">{{ post.title }}</h2>
                                 </a>
                             </header>
@@ -59,11 +59,17 @@
                                     </div>
                                 </a>
                                 <div class="date">
-                                    <i class="icon-clock"></i>{{ post.create_at|timesince }} ago
+                                    <i class="icon-clock" style="font-size: 16px;" ></i>{{ post.create_at|timesince }} ago
+                                </div>
+                                <div class="date">
+                                    <i class="icon-comment"></i>12
                                 </div>
                                 <div class="comments">
-                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    {% like_user request post.pk as from_user_like %}
+                                    <a name="{{ post.pk }}" style="color: {% if from_user_like  %}red;{% else %}#999;{% endif %}; cursor: pointer;" class="like"> 
+                                        <i class="fa fa-thumbs-up" style="font-size: 16px;" aria-hidden="true"></i> 
+                                        <span id="like_count_{{post.pk}}">{{  post.total_likes }}</span>
+                                    </a>
                                 </div>
                                 
                             </footer>
@@ -94,7 +100,7 @@
     <!-- Latest Posts -->
    
     <!-- Newsletter Section-->
-    <section class="newsletter no-padding-top">
+    <section class="newsletter">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -178,3 +184,34 @@
     </section>
     
 {% endblock main %}
+
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$('.like').click(function(){
+    $.ajax({
+             type: "POST",
+             url: "{% url 'like' %}",
+             data: {'post_id': $(this).attr('name'),'operation':'like_submit', 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+             dataType: "json",
+             success: function(response) {
+              selector = document.getElementsByName(response.post_id);
+                    if(response.liked==true){
+                        $(selector).css("color", "red");
+                        
+                        
+                    }
+                    else if(response.liked==false){
+                        $(selector).css("color", "#999");
+                       
+                    }
+                    $('#like_count_' + response.post_id).text(response.total_likes)
+                    
+              }
+
+        });
+
+  })
+</script>
+{% endblock scripts %}
