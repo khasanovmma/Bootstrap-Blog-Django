@@ -1,14 +1,14 @@
 from turtle import pos
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView, TemplateView, CreateView
 from requests import get
+from .forms import PostForm, EditForm
 from .models import Post, Category, Profile, Ip, Comment
 import json
 from django.http import HttpResponse
 from .utils import get_client_ip
-# def home_page(request):
-#     return render(request, 'web_site/blog.html')
+from django.contrib.auth.models import User
 
 class HomePageView(ListView):
     model = Post
@@ -61,6 +61,14 @@ class LikeView(TemplateView):
         print(post.likes.filter(id=request.user.id).exists())
 
         return HttpResponse(json.dumps({'liked': liked, 'total_likes': str(post.total_likes()), "post_id": post_id}), content_type='application/json')
+
+class AddPostView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'web_site/add_post.html'
+
+    def get_object(self):
+        return User.objects.get(user=self.request.user)
 
 def blog_page(request):
     return render(request, 'web_site/blog.html')
