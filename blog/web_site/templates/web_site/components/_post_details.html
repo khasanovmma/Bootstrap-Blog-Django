@@ -8,11 +8,11 @@
     <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
             class="author d-flex align-items-center flex-wrap">
             <div class="avatar"><img src="{{ profile_image }}" alt=" ..." class="img-fluid"></div>
-            <div class="title"><span>{{ post.author.first_name }} {{ post.author.last_name }}</span></div>
+            <div class="title"><span>{{ post }}</span></div>
         </a>
         <div class="d-flex align-items-center flex-wrap">
             <div class="date"><i class="icon-clock"></i> {{ post.create_at|timesince }} ago</div>
-            <div class="views"><i class="icon-eye"></i> {{ views_count }}</div>
+            <div class="views"><i class="icon-eye"></i> {{ views_count }} </div>
             <div class="date">
                 <a name="{{ post.pk }}" style="color: {% if liked  %}red{% else %}#999{% endif %}; cursor: pointer;" class="like"> 
                 <i class="fa fa-thumbs-up" style="font-size: 16px;" aria-hidden="true"></i> 

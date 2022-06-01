@@ -22,7 +22,7 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
         post_info = get_object_or_404(Post, id=self.kwargs['pk'])
-        
+        # print(post_info.get_next_by_pk())
         ip = get_client_ip(self.request)
 
         if Ip.objects.filter(ip=ip).exists():
@@ -51,16 +51,18 @@ class LikeView(TemplateView):
         post_id = request.POST.get("post_id")
         post = Post.objects.get(pk=post_id)
         liked = False
-
-        if not post.likes.filter(id=request.user.id).exists():
-            post.likes.add(request.user)
-            liked = True
-        else:
-            post.likes.remove(request.user)
-            liked = False
-        print(post.likes.filter(id=request.user.id).exists())
+        print(request.user.is_authenticated)
+        if request.user.is_authenticated:
+            if not post.likes.filter(id=request.user.id).exists():
+                post.likes.add(request.user)
+                liked = True
+            else:
+                post.likes.remove(request.user)
+                liked = False
+            print(post.likes.filter(id=request.user.id).exists())
 
         return HttpResponse(json.dumps({'liked': liked, 'total_likes': str(post.total_likes()), "post_id": post_id}), content_type='application/json')
+        
 
 class AddPostView(CreateView):
     model = Post

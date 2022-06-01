@@ -1,14 +1,21 @@
 <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
-    <a href="#" class="prev-post text-left d-flex align-items-center">
+  
+  
+  {% if post.get_previous_by_create_at  %}
+    <a href="{{ post.get_previous_by_create_at.get_absolute_url }}" class="prev-post text-left d-flex align-items-center mr-auto">
       <div class="icon prev"><i class="fa fa-angle-left"></i></div>
-      <div class="text"><strong class="text-primary">Previous Post </strong>
+      <div class="text"><strong class="text-primary">Previous Post</strong>
         <h6>I Bought a Wedding Dress.</h6>
       </div>
     </a>
-    <a href="#" class="next-post text-right d-flex align-items-center justify-content-end">
-      <div class="text"><strong class="text-primary">Next Post </strong>
+  {% endif %}
+
+  {% if post.get_next_by_create_at %}
+    <a href="{{ post.get_next_by_create_at.get_absolute_url }}" class="next-post text-right d-flex align-items-center justify-content-end ml-auto">
+      <div class="text"><strong class="text-primary">Next Post</strong>
         <h6>I Bought a Wedding Dress.</h6>
       </div>
       <div class="icon next"><i class="fa fa-angle-right"> </i></div>
     </a>
+  {% endif %}
   </div>

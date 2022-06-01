@@ -66,7 +66,7 @@ class Post(models.Model):
         return self.views.count()
 
     def __str__(self):
-        return self.title
+        return self.author.first_name + ' ' + self.author.last_name
     
     def like_from_user(self, request):
         return self.likes.filter(id=request.user.id).exists()
@@ -80,6 +80,9 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy("post_details", kwargs={"pk": self.pk})
+    
+    # def next_post(self):
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
