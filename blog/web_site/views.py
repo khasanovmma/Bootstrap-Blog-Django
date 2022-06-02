@@ -20,7 +20,7 @@ class PostDetailView(DetailView):
     
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        context = super(PostDetailView, self).get_context_data(*args, **kwargs)
         post_info = get_object_or_404(Post, id=self.kwargs['pk'])
         # print(post_info.get_next_by_pk())
         ip = get_client_ip(self.request)
@@ -69,9 +69,6 @@ class PostListByCategory(ListView):
     template_name = 'web_site/blog.html'
     paginate_by = 4
     page_kwarg = 'category'
-
-    
-    
 
 class AddPostView(CreateView):
     model = Post

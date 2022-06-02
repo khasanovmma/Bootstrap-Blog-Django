@@ -4,9 +4,6 @@
         <li class="nav-item">
             <a href="{% url 'home' %}" class="nav-link active">Home</a>
         </li>
-        <li class="nav-item">
-            <a href="{% url 'blog' %}" class="nav-link">Blog</a>
-        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"
                href="#"
@@ -14,12 +11,14 @@
                role="button"
                data-toggle="dropdown"
                aria-expanded="false">
-                
                 Category
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item border-0 m-1" href="{% url 'profile' request.user.username %}">Profile</a>
-                
+                {% get_category as categories %}
+                {% for category in categories %}
+                    <a class="dropdown-item border-0 m-1"
+                       href="{{ category.get_absolute_url }}">{{ category }}</a>
+                {% endfor %}
             </div>
         </li>
         <li class="nav-item">

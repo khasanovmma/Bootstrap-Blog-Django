@@ -42,6 +42,6 @@ def get_post_by_like(request):
 
 @register.simple_tag()
 def get_category():
-    category = Catagory.objects.all()
+    category = Category.objects.all()
     return category
 
