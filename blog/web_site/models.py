@@ -39,6 +39,9 @@ class Profile(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=150)
 
+    def get_absolute_url(self):
+        return reverse_lazy("category", kwargs={"pk": self.pk})
+
     def __str__(self):
         return self.title
 

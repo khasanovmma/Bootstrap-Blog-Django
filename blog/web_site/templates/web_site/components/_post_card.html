@@ -1,18 +1,18 @@
 {% load static %}
 <div class="post col-xl-6">
-    <div class="post-thumbnail"><a href="post.html"><img src="{% static 'img/blog-post-1.jpeg' %}" alt="..." class="img-fluid"></a></div>
+    <div class="post-thumbnail"><a href="post.html"><img src="{{ post.photo_url }}" alt="..." class="img-fluid"></a></div>
     <div class="post-details">
       <div class="post-meta d-flex justify-content-between">
-        <div class="date meta-last">20 May | 2016</div>
-        <div class="category"><a href="#">Business</a></div>
+        <div class="date meta-last">{{ post.create_at|date:"F d | Y" }}</div>
+        <div class="category"><a href="#">{{ post.category }}</a></div>
       </div><a href="post.html">
-        <h3 class="h4">Alberto Savoia Can Teach You About Interior</h3></a>
-      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+        <h3 class="h4">{{ post.title }}</h3></a>
+      <p class="text-muted">{{ post.content|truncatechars:100 }}</p>
       <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
           <div class="avatar"><img src="{% static 'img/avatar-3.jpg' %}" alt="..." class="img-fluid"></div>
-          <div class="title"><span>John Doe</span></div></a>
-        <div class="date"><i class="icon-clock"></i> 2 months ago</div>
-        <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+          <div class="title"><span>{{ post.author.first_name }}</span></div></a>
+        <div class="date"><i class="icon-clock"></i> {{ post.create_at|timesince }} </div>
+        <div class="comments meta-last"><i class="icon-comment"></i></div>
       </footer>
     </div>
   </div>

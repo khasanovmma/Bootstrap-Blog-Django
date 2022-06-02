@@ -7,8 +7,9 @@
       <div class="container">
         <div class="row">
           <!-- post -->
+          {% for post in posts %}
             {% include 'web_site/components/_post_card.html' %}
-         
+         {% endfor %}
         </div>
         <!-- Pagination -->
         {% include 'web_site/components/_pagination.html' %}

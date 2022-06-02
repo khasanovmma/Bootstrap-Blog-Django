@@ -1,5 +1,5 @@
 from django import template
-from web_site.models import Profile, Post, Comment
+from web_site.models import Profile, Post, Comment, Category
 from django.db.models import Count
 
 register = template.Library()
@@ -39,4 +39,9 @@ def get_post_by_like(request):
         liked =  Post.objects.get(pk=post.pk).like_from_user(request)
         data_list.append({'post': post, 'liked': liked})
     return data_list
+
+@register.simple_tag()
+def get_category():
+    category = Catagory.objects.all()
+    return category
 

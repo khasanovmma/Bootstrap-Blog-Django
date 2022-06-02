@@ -7,8 +7,20 @@
         <li class="nav-item">
             <a href="{% url 'blog' %}" class="nav-link">Blog</a>
         </li>
-        <li class="nav-item">
-            <a href="{% url 'post' %}" class="nav-link">Post</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               id="navbarDropdown"
+               role="button"
+               data-toggle="dropdown"
+               aria-expanded="false">
+                
+                Category
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item border-0 m-1" href="{% url 'profile' request.user.username %}">Profile</a>
+                
+            </div>
         </li>
         <li class="nav-item">
             <a href="{% url 'add_post' %}" class="nav-link">Add post</a>

@@ -14,7 +14,7 @@ class HomePageView(ListView):
     model = Post
     template_name = 'web_site/index.html'
 
-class ArticleDetailView(DetailView):
+class PostDetailView(DetailView):
     model = Post
     template_name = 'web_site/post_details.html'
     
@@ -62,7 +62,16 @@ class LikeView(TemplateView):
             print(post.likes.filter(id=request.user.id).exists())
 
         return HttpResponse(json.dumps({'liked': liked, 'total_likes': str(post.total_likes()), "post_id": post_id}), content_type='application/json')
-        
+
+class PostListByCategory(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'web_site/blog.html'
+    paginate_by = 4
+    page_kwarg = 'category'
+
+    
+    
 
 class AddPostView(CreateView):
     model = Post
