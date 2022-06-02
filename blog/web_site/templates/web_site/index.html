@@ -49,6 +49,8 @@
                                 {{ post.content|truncatewords:40 }}
                             </p>
                             <footer class="post-footer d-flex align-items-center">
+                                {% post_data request post.pk as post_info %}
+
                                 <a href="#" class="author d-flex align-items-center flex-wrap">
                                     <div class="avatar">
                                         {% user_profile_image post.author as profile_image %}
@@ -62,16 +64,15 @@
                                     <i class="icon-clock" style="font-size: 16px;" ></i>{{ post.create_at|timesince }} ago
                                 </div>
                                 <div class="date">
-                                    <i class="icon-comment"></i>12
+                                    <i class="icon-comment"></i>{{  post_info.total_comment }}
                                 </div>
                                 <div class="comments">
-                                    {% like_user request post.pk as from_user_like %}
-                                    <a name="{{ post.pk }}" style="color: {% if from_user_like  %}red;{% else %}#999;{% endif %}; cursor: pointer;" class="like"> 
+                                    
+                                    <a name="{{ post.pk }}" style="color: {% if post_info.liked  %}red;{% else %}#999;{% endif %}; cursor: pointer;" class="like"> 
                                         <i class="fa fa-thumbs-up" style="font-size: 16px;" aria-hidden="true"></i> 
                                         <span id="like_count_{{post.pk}}">{{  post.total_likes }}</span>
                                     </a>
                                 </div>
-                                
                             </footer>
                         </div>
                     </div>
@@ -81,6 +82,8 @@
                 </div>
             </div>
             {% endfor %}
+
+
         </div>
     </section>
     <!-- Divider Section-->

@@ -75,13 +75,13 @@ class Post(models.Model):
         try:
             url = self.photo.url
         except:
-            url = 'https://www.midlandbrewing.com/wp-content/uploads/2018/04/Photo-Coming-Soon.png'
+            url = 'https://www.maisondalis.ma/wp-content/uploads/2022/02/image-coming-soon.jpg'
         return url
 
     def get_absolute_url(self):
         return reverse_lazy("post_details", kwargs={"pk": self.pk})
     
-    # def next_post(self):
+    
 
 
 class Comment(models.Model):

@@ -1,0 +1,32 @@
+{% load website_tags %}
+<div class="widget latest-posts">
+    <header>
+        <h3 class="h6">Posts By Like</h3>
+    </header>
+    <div class="blog-posts">
+      {% get_post_by_like request as post_by_like %}
+
+        {% for data in post_by_like %}  
+        <a href="{{ data.post.get_absolute_url }}">
+            <div class="item d-flex align-items-center">
+                <div class="image">
+                    <img src="{{ data.post.photo_url }}"
+                         alt="..."
+                         class="img-fluid">
+                </div>
+                <div class="title">
+                    <strong>{{ data.post.title }}</strong>
+                    <div class="d-flex align-items-center">
+                        <div class="views">
+                            <i class="icon-eye"></i> {{ data.post.views_count }}
+                        </div>
+                        <div class="comments">
+                          <i class="fa fa-thumbs-up" style="font-size: 16px;  {% if data.liked  %}color:red;{% endif %}" aria-hidden="true"></i> 
+                          {{ data.post.total_likes }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
