@@ -39,7 +39,9 @@
 				</div>
 			</div>
 			<div class="d-flex justify-content-center mb-2">
+				{% if request.user == user_page.user %}
 			  <a href="{% url 'edit_profile' %}" class="btn btn-danger">Edit profile</a>
+			  {% endif %}
 			</div>
 		  </div>
 		</div>

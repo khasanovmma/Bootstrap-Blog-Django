@@ -1,13 +1,14 @@
 from re import template
 from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from web_site.models import Profile
 from django.contrib.auth.models import User
 from django.views.generic import CreateView, UpdateView, TemplateView, DetailView, ListView
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from .forms import SignUpForm, EditAccountForm, ChangePasswordForm, ResetPasswordForm, SetNewPasswordForm, EditProfileFrom
 
 
@@ -56,11 +57,15 @@ class ShowProfilePageView(ListView):
         context["user_page"] =  user_profile
         return context
 
-class EditProfileView(SuccessMessageMixin, UpdateView):
+class EditProfileView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = EditProfileFrom
     model= Profile
     template_name = 'registration/edit_profile.html'
     success_message = 'Profile data successfully updated'
+
+    permission_required = ''
+    login_url = reverse_lazy('login')
+
     def get_success_url(self):
         return reverse_lazy('profile', kwargs = {'username': self.request.user.username })
 
