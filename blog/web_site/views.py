@@ -1,4 +1,5 @@
 from turtle import pos
+from unicodedata import category
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView
@@ -67,8 +68,13 @@ class PostListByCategory(ListView):
     model = Post
     context_object_name = 'posts'
     template_name = 'web_site/blog.html'
-    paginate_by = 4
-    page_kwarg = 'category'
+    paginate_by = 1
+    # allow_empty = False
+
+    def get_queryset(self):
+        return Post.objects.filter(category=self.kwargs['pk'])
+    
+
 
 class AddPostView(CreateView):
     model = Post
