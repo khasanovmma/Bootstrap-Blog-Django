@@ -12,11 +12,11 @@
                     <a href="#" class="hero-link">Discover More</a>
                 </div>
             </div>
-            <a href=".intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
+            <a href="#intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
         </div>
     </section>
     <!-- Intro Section-->
-    <section class="intro">
+    <section class="intro", id="intro">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -61,11 +61,9 @@
                                     </div>
                                 </a>
                                 <div class="date">
-                                    <i class="icon-clock" style="font-size: 16px;" ></i>{{ post.create_at|timesince }} ago
+                                    <i class="icon-clock" style="font-size: 16px;" ></i>{{ post.create_at|timesince }}
                                 </div>
-                                <div class="date">
-                                    <i class="icon-comment"></i>{{  post_info.total_comment }}
-                                </div>
+                                
                                 <div class="comments">
                                     
                                     <a name="{{ post.pk }}" style="color: {% if post_info.liked  %}red;{% else %}#999;{% endif %}; cursor: pointer;" class="like"> 

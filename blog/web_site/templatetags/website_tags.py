@@ -8,7 +8,7 @@ register = template.Library()
 @register.simple_tag()
 def user_profile(request):
     if request.user.is_authenticated:
-        user_page = Profile.objects.get_or_create(user=request.user)
+        user_page, created = Profile.objects.get_or_create(user=request.user)
         return user_page
 
 @register.simple_tag()

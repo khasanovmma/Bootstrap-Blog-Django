@@ -26,7 +26,7 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse_lazy("profile", kwargs={"username": self.user.username})
 
-    @property
+    
     def image_url(self):
         try:
             url = self.profile_image.url
@@ -69,7 +69,7 @@ class Post(models.Model):
         return self.views.count()
 
     def __str__(self):
-        return self.author.first_name + ' ' + self.author.last_name
+        return self.author.first_name
     
     def like_from_user(self, request):
         return self.likes.filter(id=request.user.id).exists()
