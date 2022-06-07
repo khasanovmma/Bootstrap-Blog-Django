@@ -8,7 +8,7 @@
     <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
             class="author d-flex align-items-center flex-wrap">
             <div class="avatar"><img src="{{ profile_image }}" alt=" ..." class="img-fluid"></div>
-            <div class="title"><span>{{ post }}</span></div>
+            <div class="title"><span>{{  post.create_at }}</span></div>
         </a>
         <div class="d-flex align-items-center flex-wrap">
             <div class="date"><i class="icon-clock"></i> {{ post.create_at|timesince }} ago</div>
@@ -23,10 +23,12 @@
         </div>
     </div>
     <div class="post-body">
-       {{ post.content }}
+       {{ item.post.content }}
     </div>
     {% include 'web_site/components/_post_tags.html' %}
     {% include 'web_site/components/_post_nav.html' %}
     {% include 'web_site/components/_post_comments.html' %}
+    {% if request.user.is_authenticated %}
     {% include 'web_site/components/_post_add_comment.html' %}
+    {% endif %}
 </div>
