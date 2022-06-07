@@ -82,14 +82,14 @@ class Post(models.Model):
         return url
 
     def get_absolute_url(self):
-        return reverse_lazy("post_details", kwargs={"pk": self.pk})
+        return reverse_lazy("post_detail", kwargs={"pk": self.pk})
     
     
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
-    name = models.OneToOneField(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE, null=True)
+    name = models.ForeignKey(User, on_delete=models.CASCADE, null= True)
     body = models.CharField(max_length=255)
     date_added = models.DateTimeField(auto_now_add=True)
 
