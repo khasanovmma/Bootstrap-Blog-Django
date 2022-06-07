@@ -2,19 +2,15 @@
     <header>
       <h3 class="h6">Leave a reply</h3>
     </header>
-    <form action="#" class="commenting-form">
+    <form action="{% url 'add_comment' post.pk %}" method="post" class="commenting-form">
+      {% csrf_token %}
       <div class="row">
-        <div class="form-group col-md-6">
-          <input type="text" name="username" id="username" placeholder="Name" class="form-control">
-        </div>
-        <div class="form-group col-md-6">
-          <input type="email" name="username" id="useremail"
-            placeholder="Email Address (will not be published)" class="form-control">
-        </div>
+        {% for field in form %}
         <div class="form-group col-md-12">
-          <textarea name="usercomment" id="usercomment" placeholder="Type your comment"
-            class="form-control"></textarea>
+          {{ field }}
         </div>
+        {% endfor %}
+      
         <div class="form-group col-md-12">
           <button type="submit" class="btn btn-secondary">Submit Comment</button>
         </div>

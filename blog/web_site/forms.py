@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 from django import forms
 from .models import Post, Category, Comment
 
@@ -28,9 +29,8 @@ class EditForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'body')
+        fields = ('body',)
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'body': forms.Textarea(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder':'Type your comment'}),
         }

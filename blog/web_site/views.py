@@ -4,8 +4,9 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView
 from requests import get
-from .forms import PostForm, EditForm
+from .forms import PostForm, EditForm, CommentForm
 from .models import Post, Category, Profile, Ip, Comment
+from django.views.generic.edit import FormMixin
 import json
 from django.http import HttpResponse
 from .utils import get_client_ip
@@ -15,15 +16,15 @@ class HomePageView(ListView):
     model = Post
     template_name = 'web_site/index.html'
 
-class PostDetailView(DetailView):
+class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = 'web_site/post_details.html'
+    form_class = CommentForm
     
 
     def get_context_data(self, *args, **kwargs):
         context = super(PostDetailView, self).get_context_data(*args, **kwargs)
         post_info = get_object_or_404(Post, id=self.kwargs['pk'])
-        # print(post_info.get_next_by_pk())
         ip = get_client_ip(self.request)
 
         if Ip.objects.filter(ip=ip).exists():
@@ -72,7 +73,15 @@ class PostListByCategory(ListView):
     # allow_empty = False
 
     def get_queryset(self):
-        return Post.objects.filter(category=self.kwargs['pk'])
+        posts = Post.objects.filter(category=self.kwargs['pk'])
+        data = []
+        for post in posts:
+            data.append({
+                "post": post,
+                "user_image": Profile.objects.get(user=post.author).image_url(),
+                'comment_count': Comment.objects.filter(post=post).count()
+            })
+        return data
     
 
 
@@ -83,6 +92,23 @@ class AddPostView(CreateView):
 
     def get_object(self):
         return User.objects.get(user=self.request.user)
+
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html'
+    
+    def form_valid(self, form):
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        body = form.cleaned_data['body']
+        user = self.request.user
+        comment  = Comment(post=post, name=user, body=body)
+        comment.save()
+        return super(AddCommentView, self).form_valid(form)
+        
+    
+    def get_success_url(self):
+        return reverse_lazy('post_detail', kwargs={'pk': self.kwargs['pk']})
 
 def blog_page(request):
     return render(request, 'web_site/blog.html')
