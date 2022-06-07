@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row">
           <!-- post -->
-          {% for post in posts %}
+          {% for item in object_list %}
             {% include 'web_site/components/_post_card.html' %}
          {% endfor %}
         </div>
