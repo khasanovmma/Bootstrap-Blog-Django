@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <!-- Latest Posts -->
+    <main class="posts-listing col-lg-8"> 
+      <div class="container">
+        <div class="row">
+          <!-- post -->
+          {% for item in object_list %}
+            {% include 'web_site/components/_post_card.html' %}
+         {% endfor %}
+        </div>
+        <!-- Pagination -->
+        {% include 'web_site/components/_pagination.html' %}
+      </div>
+    </main>
+    {% include 'web_site/components/_aside.html' %}
+  </div>
+</div>
+{% endblock main %}
+    
