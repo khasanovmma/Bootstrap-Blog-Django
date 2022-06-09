@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
-from web_site.models import Profile
+from web_site.models import Profile, Post
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
@@ -81,6 +81,17 @@ class EditProfileFrom(forms.ModelForm):
             'telegram_url': forms.TextInput(attrs={'class': 'form-control'}),
         }
     
+
+class EditPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'content', 'photo')
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'This is Title Placeholder'}),
+            'content': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+        
 
 
   

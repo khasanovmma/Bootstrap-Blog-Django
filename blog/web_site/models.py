@@ -59,7 +59,7 @@ class Post(models.Model):
     photo = models.ImageField(upload_to='photos/', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, related_name='blog_posts')
+    likes = models.ManyToManyField(User, related_name='blog_posts', blank=True)
     views = models.ManyToManyField(Ip, related_name="post_views", blank=True)
 
     def total_likes(self):

@@ -10,4 +10,5 @@ urlpatterns = [
     path('profile/<str:username>', ShowProfilePageView.as_view(), name="profile"),
     path('edit-profile/', EditProfileView.as_view(), name="edit_profile"),
     path('reset/<uidb64>/<token>/', UserSetPasswordtView.as_view()),
+    path('post/<int:pk>/eitd/', UpdatePostView.as_view(), name='update_post'),
 ]
