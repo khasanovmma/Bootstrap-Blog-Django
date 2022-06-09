@@ -68,7 +68,7 @@ class LikeView(TemplateView):
 class PostListByCategory(ListView):
     model = Post
     context_object_name = 'posts'
-    template_name = 'web_site/blog.html'
+    template_name = 'web_site/post_by_category.html'
     paginate_by = 1
     # allow_empty = False
 
