@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from web_site.models import Profile, Post
 from django.contrib.auth.models import User
-from django.views.generic import CreateView, UpdateView, TemplateView, DetailView, ListView
+from django.views.generic import CreateView, UpdateView, TemplateView, DetailView, ListView, DeleteView
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -79,6 +79,12 @@ class UpdatePostView(UpdateView):
     model = Post
     form_class = EditPostForm
     template_name = 'registration/update_post.html'
+
+class DeletePostView(DeleteView):
+    model = Post
+    template_name = 'registration/delete.html'
     
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs = {'username': self.request.user.username })
 
    

@@ -110,24 +110,33 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="d-flex flex-column blog-posts overflow-auto bg-transparent"
+                        <div class="d-flex flex-column blog-posts overflow-auto bg-transparent
                              style="max-width: 100%;
                                     max-height: 250px;">
                             {% for post in user_posts %}
                                 <a href="{{ post.get_absolute_url }}" class="my-3">
-                                    <div class="item d-flex align-items-center">
-                                        <div class="image">
-                                            <img style="width:50px; height:50px;" src="{{ post.photo_url }}" alt="..." class="img-fluid">
-                                        </div>
-                                        <div class="title">
-                                            <strong>{{ post.title }}</strong>
-                                            <div class="d-flex align-items-center">
-                                                <div class="views">
-                                                    <i class="icon-eye"></i> {{ post.views_count }}
+                                    <div class="item d-flex align-items-center  justify-content-between"">
+                                        <div class="">
+                                            <div class="image">
+                                                <img style="width:50px;
+                                                            height:50px;"
+                                                     src="{{ post.photo_url }}"
+                                                     alt="..."
+                                                     class="img-fluid">
+                                            </div>
+                                            <div class="title">
+                                                <strong>{{ post.title|truncatewords:3 }}</strong>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="views">
+                                                        <i class="icon-eye"></i> {{ post.views_count }}
+													</div>
+                                                </div>
                                             </div>
                                         </div>
-										<a class="btn btn-primary" href="{% url 'update_post' post.pk %}">Edit</a>
-										<a class="btn btn-danger" href="{% url 'update_post' post.pk %}">Delete</a>
+                                        <div class="">
+                                            <a class="btn btn-primary" href="{% url 'update_post' post.pk %}">Edit</a>
+                                            <a class="btn btn-danger" href="{% url 'delete_post' post.pk %}">Delete</a>
+                                        </div>
                                     </div>
                                 </div>
                             </a>

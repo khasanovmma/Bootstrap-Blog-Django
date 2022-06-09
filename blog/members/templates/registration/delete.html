@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Delete Post{% endblock %}
+{% block main %}
+<div class="container">
+{% if user.is_authenticated %}
+    <div class="form-group">
+        <header>
+            <h3 class="h3">Update post</h3>
+        </header>
+        <h6>Delete: {{ post.title }}</h6>
+
+        {% include 'components/_messages.html' %}
+        <form method="post">
+            {% csrf_token %}
+            <strong>Are you sure?!</strong><br/>
+                <br/>
+            <button type="submit" class="btn btn-danger btn-lg px-5">Delete</button>
+{% else %}
+
+    <h1>Please Login to edit or add posts</h1>
+    
+{% endif %}
+
+{% endblock %}
