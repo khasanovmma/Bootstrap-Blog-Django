@@ -12,6 +12,11 @@ Bootstrap Temple Blog Template
 * GENERAL
 * =====================
 */
+
+body {
+  scroll-behavior: smooth;
+}
+
 .text-bold {
   font-weight: 700;
 }
@@ -457,8 +462,11 @@ div[class*="-btn"] {
 .navbar .langs a:first-of-type,
 .navbar .search-btn {
   margin-left: 20px;
+  margin-right: 20px;
   padding-left: 20px;
+  padding-right: 20px;
   border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
   height: 20px;
   line-height: 20px;
 }
